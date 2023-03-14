@@ -5,14 +5,17 @@ const orderSchema = mongoose.Schema({
     createDate: String,
     deliveryDate: Date,
     receiverName: String,
+    customerType: String,
     address: String,
     phone: Number,
     product: String,
+    productDetails: String,
     clientName: String,
     clientPhone: Number,
     comment: String,
     completed: Boolean,
-    delete: Boolean
+    delete: Boolean,
+    paid: Boolean
 });
 
 export default mongoose.model("order", orderSchema);

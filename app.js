@@ -1,11 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
 import order from "./api/models/order.js";
+import * as API from './mongo.js';
 
 const app = express();
 const port = 5500;
 
-const mongoURL = 'mongodb+srv://benimorales:hikSG5j8GdYPiK7d@cluster0.ezidvwu.mongodb.net/?retryWrites=true&w=majority';
+const mongoURL = `mongodb+srv://${API.API_USER}:${API.API_KEY}@cluster0.ezidvwu.mongodb.net/?retryWrites=true&w=majority`;
 
 mongoose.connect(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('strictQuery', false);
