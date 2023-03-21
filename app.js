@@ -2,17 +2,17 @@ import express from "express";
 import mongoose from "mongoose";
 import order from "./api/models/order.js";
 import * as API from './mongo.js';
+import cors from "cors";
+
 
 const app = express();
 // const port = 3000;
-
 // const mongoURL = `mongodb+srv://${API.API_USER}:${API.API_KEY}@cluster0.ezidvwu.mongodb.net/?retryWrites=true&w=majority`;
 
 // mongoose.connect(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true });
 //mongodb
 mongoose.connect(API.MONGO_URL,
     {
-        useNewUrlParser: true,
         useUnifiedTopology: true
 
     })
@@ -20,9 +20,13 @@ mongoose.connect(API.MONGO_URL,
     .catch(err => console.log(err)
     );
 
-mongoose.set('strictQuery', true);
+mongoose.set('strictQuery', false);
 
 app.use(express.json({ limit: "50mb" }));
+const directorios_permitidos = "*";
+app.use(cors({
+    origin: directorios_permitidos
+}));
 
 app.get('/', (req, res) => {
     res.json({
