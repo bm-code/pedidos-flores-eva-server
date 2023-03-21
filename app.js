@@ -24,6 +24,12 @@ mongoose.set('strictQuery', true);
 
 app.use(express.json({ limit: "50mb" }));
 
+app.get('/', (req, res) => {
+    res.json({
+        message: 'Hello orders'
+    });
+});
+
 app.post("/api/orders", (req, res) => {
     let orderData = req.body;
     order.create(orderData, (err, records) => {
