@@ -1,7 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
 import order from "./api/models/order.js";
-import * as API from './mongo.js';
 import cors from "cors";
 import bodyParser from "body-parser";
 
@@ -107,4 +106,4 @@ app.get('/api/orders', (req, res) => {
 // app.listen(port, () => {
 //     console.log(`Server is listening at port: ${port}`);
 // });
-app.listen(API.PORT, () => console.log('Server on port:' + API.PORT));
+app.listen(process.env.PORT, () => console.log('Server on port:' + process.env.PORT));
