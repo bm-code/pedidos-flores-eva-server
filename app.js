@@ -20,10 +20,10 @@ mongoose.connect(API.MONGO_URL,
     .catch(err => console.log(err)
     );
 
-mongoose.set('strictQuery', false);
+mongoose.set('strictQuery', true);
 
 app.use(express.json({ limit: "50mb" }));
-const directorios_permitidos = "*";
+const directorios_permitidos = "https://pedidos-flores-eva-client-production.up.railway.app/";
 app.use(cors({
     origin: directorios_permitidos
 }));
