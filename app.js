@@ -28,7 +28,7 @@ app.use(express.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-const directorios_permitidos = "http://localhost:3000";
+const directorios_permitidos = "https://pedidos-front.up.railway.app/";
 app.use(cors({
     origin: directorios_permitidos
 }));
