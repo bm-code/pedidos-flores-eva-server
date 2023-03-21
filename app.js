@@ -4,7 +4,7 @@ import order from "./api/models/order.js";
 import * as API from './mongo.js';
 
 const app = express();
-// const port = 5500;
+// const port = 3000;
 
 // const mongoURL = `mongodb+srv://${API.API_USER}:${API.API_KEY}@cluster0.ezidvwu.mongodb.net/?retryWrites=true&w=majority`;
 
