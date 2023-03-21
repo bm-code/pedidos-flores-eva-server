@@ -4,12 +4,23 @@ import order from "./api/models/order.js";
 import * as API from './mongo.js';
 
 const app = express();
-const port = 5500;
+// const port = 5500;
 
-const mongoURL = `mongodb+srv://${API.API_USER}:${API.API_KEY}@cluster0.ezidvwu.mongodb.net/?retryWrites=true&w=majority`;
+// const mongoURL = `mongodb+srv://${API.API_USER}:${API.API_KEY}@cluster0.ezidvwu.mongodb.net/?retryWrites=true&w=majority`;
 
-mongoose.connect(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.set('strictQuery', false);
+// mongoose.connect(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true });
+//mongodb
+mongoose.connect(API.MONGO_URL,
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+
+    })
+    .then(() => console.log('MongoDB Conectada'))
+    .catch(err => console.log(err)
+    );
+
+mongoose.set('strictQuery', true);
 
 app.use(express.json({ limit: "50mb" }));
 
@@ -82,6 +93,7 @@ app.get('/api/orders', (req, res) => {
     });
 });
 
-app.listen(port, () => {
-    console.log(`Server is listening at port: ${port}`);
-});
+// app.listen(port, () => {
+//     console.log(`Server is listening at port: ${port}`);
+// });
+app.listen(API.PORT, () => console.log('Server on port:' + API.PORT));
