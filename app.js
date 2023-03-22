@@ -1,8 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
 import order from "./api/models/order.js";
+import user from "./api/models/user.js";
 import cors from "cors";
 import bodyParser from "body-parser";
+import jwt from "jsonwebtoken";
 
 
 const app = express();
@@ -17,10 +19,11 @@ mongoose.connect(process.env.MONGO_URL,
     .catch(err => console.log(err)
     );
 
+
 mongoose.set('strictQuery', true);
 
 app.use(express.json({ limit: "50mb" }));
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const directorios_permitidos = "*";
@@ -103,6 +106,26 @@ app.get('/api/orders', (req, res) => {
     });
 });
 
+// Login de usuario
+
+app.get('/api/login', (req, res) => {
+    const userLogin = req.query.username;
+    const pass = req.query.password;
+    user.findOne({ 'username': userLogin, 'password': pass }, (err, docs) => {
+        if (err) {
+            res.status(400).send('Login incorrecto');
+            return err;
+        } else {
+            if (docs !== null) {
+                res.status(200).send(docs)
+                console.log(docs);
+            }
+        }
+    })
+
+});
+
+// const port = 5500;
 // app.listen(port, () => {
 //     console.log(`Server is listening at port: ${port}`);
 // });
