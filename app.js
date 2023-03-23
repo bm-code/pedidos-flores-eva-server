@@ -19,7 +19,6 @@ mongoose.connect(process.env.MONGO_URL,
     .catch(err => console.log(err)
     );
 
-
 mongoose.set('strictQuery', true);
 
 app.use(express.json({ limit: "50mb" }));
@@ -108,9 +107,9 @@ app.get('/api/orders', (req, res) => {
 
 // Login de usuario
 
-app.get('/api/login', (req, res) => {
-    const userLogin = req.query.username;
-    const pass = req.query.password;
+app.post('/api/login', (req, res) => {
+    const userLogin = req.body.username;
+    const pass = req.body.password;
     user.findOne({ 'username': userLogin, 'password': pass }, (err, docs) => {
         if (err) {
             res.status(400).send('Login incorrecto');
@@ -118,7 +117,6 @@ app.get('/api/login', (req, res) => {
         } else {
             if (docs !== null) {
                 res.status(200).send(docs)
-                console.log(docs);
             }
         }
     })
