@@ -4,7 +4,7 @@ import order from "./api/models/order.js";
 import user from "./api/models/user.js";
 import cors from "cors";
 import bodyParser from "body-parser";
-import jwt from "jsonwebtoken";
+import webpush from 'web-push';
 
 
 const app = express();
@@ -122,6 +122,35 @@ app.post('/api/login', (req, res) => {
     })
 
 });
+
+//Notificaciones
+
+webpush.setVapidDetails('mailto:i.benimorales@gmail.com', process.env.PUBLIC_KEY, process.env.PRIVATE_KEY);
+let pushSubscription;
+
+app.post('/subscriptions', async (req, res) => {
+    pushSubscription = req.body;
+    res.status(200).json();
+})
+
+app.post('/new-order', async (req, res) => {
+
+    const { message } = req.body;
+
+    const payload = JSON.stringify({
+        title: 'Nuevo pedido registrado',
+        message: message
+    })
+
+    try {
+        await webpush.sendNotification(pushSubscription, payload, {
+            headers: { 'Content-Type': '*' }
+        })
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 
 // const port = 5500;
 // app.listen(port, () => {
