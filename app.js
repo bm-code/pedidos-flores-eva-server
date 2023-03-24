@@ -125,22 +125,7 @@ app.post('/api/login', (req, res) => {
 
 //Notificaciones
 
-function urlBase64ToUint8Array(base64String) {
-    const padding = '='.repeat((4 - base64String.length % 4) % 4);
-    const base64 = (base64String + padding)
-        .replace(/-/g, '+')
-        .replace(/_/g, '/');
-
-    const rawData = window.atob(base64);
-    const outputArray = new Uint8Array(rawData.length);
-
-    for (let i = 0; i < rawData.length; ++i) {
-        outputArray[i] = rawData.charCodeAt(i);
-    }
-    return outputArray;
-}
-
-webpush.setVapidDetails('mailto:i.benimorales@gmail.com', urlBase64ToUint8Array(process.env.PUBLIC_KEY), process.env.PRIVATE_KEY);
+webpush.setVapidDetails('mailto:i.benimorales@gmail.com', process.env.PUBLIC_KEY, process.env.PRIVATE_KEY);
 let pushSubscription;
 
 app.post('/subscriptions', async (req, res) => {
