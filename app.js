@@ -8,6 +8,10 @@ import webpush from 'web-push';
 
 
 const app = express();
+const directorios_permitidos = "*";
+app.use(cors({
+    origin: directorios_permitidos
+}));
 
 //mongodb
 mongoose.connect(process.env.MONGO_URL,
@@ -25,10 +29,6 @@ app.use(express.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const directorios_permitidos = "*";
-app.use(cors({
-    origin: directorios_permitidos
-}));
 
 app.get('/', (req, res) => {
     res.json({
