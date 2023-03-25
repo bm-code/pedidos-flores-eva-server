@@ -23,6 +23,8 @@ mongoose.connect(process.env.MONGO_URL,
     .catch(err => console.log(err)
     );
 
+
+
 mongoose.set('strictQuery', true);
 
 app.use(express.json({ limit: "50mb" }));
@@ -126,9 +128,11 @@ app.post('/api/login', (req, res) => {
 //Notificaciones
 
 webpush.setVapidDetails('mailto:i.benimorales@gmail.com', process.env.PUBLIC_KEY, process.env.PRIVATE_KEY);
+
 let pushSubscription;
 
 app.post('/subscriptions', async (req, res) => {
+
     pushSubscription = req.body;
     res.status(200).json();
 })
@@ -144,7 +148,7 @@ app.post('/new-order', async (req, res) => {
 
     try {
         await webpush.sendNotification(pushSubscription, payload, {
-            headers: { 'Content-Type': '*' }
+            headers: { 'Content-Type': 'application/json' }
         })
     } catch (error) {
         console.log(error)
