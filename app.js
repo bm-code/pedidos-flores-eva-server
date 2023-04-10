@@ -23,8 +23,6 @@ mongoose.connect(process.env.MONGO_URL,
     .catch(err => console.log(err)
     );
 
-
-
 mongoose.set('strictQuery', true);
 
 app.use(express.json({ limit: "50mb" }));
@@ -117,8 +115,11 @@ app.post('/api/login', (req, res) => {
             res.status(400).send('Login incorrecto');
             return err;
         } else {
+            console.log(res);
             if (docs !== null) {
-                res.status(200).send(docs)
+                res.status(200).send(docs);
+            } else {
+                res.status(401).send('Login incorrecto')
             }
         }
     })
@@ -156,8 +157,4 @@ app.post('/new-order', async (req, res) => {
 })
 
 
-// const port = 5500;
-// app.listen(port, () => {
-//     console.log(`Server is listening at port: ${port}`);
-// });
 app.listen(process.env.PORT, () => console.log('Server on port:' + process.env.PORT));
