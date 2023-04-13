@@ -77,7 +77,6 @@ app.post("/api/editar", (req, res) => {
                 console.log(err);
             } else {
                 res.status(200).send('Pedido editado con éxito')
-
             }
         })
 })
