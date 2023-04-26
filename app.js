@@ -5,9 +5,11 @@ import user from "./api/models/user.js";
 import cors from "cors";
 import bodyParser from "body-parser";
 import webpush from 'web-push';
-
+import * as dotenv from 'dotenv'
 
 const app = express();
+dotenv.config()
+
 const directorios_permitidos = "*";
 app.use(cors({
     origin: directorios_permitidos
@@ -127,33 +129,34 @@ app.post('/api/login', (req, res) => {
 
 //Notificaciones
 
-webpush.setVapidDetails('mailto:i.benimorales@gmail.com', process.env.PUBLIC_KEY, process.env.PRIVATE_KEY);
+// webpush.setVapidDetails('mailto:i.benimorales@gmail.com', process.env.PUBLIC_KEY, process.env.PRIVATE_KEY);
 
-let pushSubscription;
+// let pushSubscription;
 
-app.post('/subscriptions', async (req, res) => {
+// app.post('/subscriptions', async (req, res) => {
 
-    pushSubscription = req.body;
-    res.status(200).json();
-})
+//     pushSubscription = req.body;
+//     res.status(200).json();
+// })
 
-app.post('/new-order', async (req, res) => {
+// app.post('/new-order', async (req, res) => {
 
-    const { message } = req.body;
+//     const { message } = req.body;
 
-    const payload = JSON.stringify({
-        title: 'Nuevo pedido registrado',
-        message: message
-    })
+//     const payload = JSON.stringify({
+//         title: 'Nuevo pedido registrado',
+//         message: message
+//     })
 
-    try {
-        await webpush.sendNotification(pushSubscription, payload, {
-            headers: { 'Content-Type': 'application/json' }
-        })
-    } catch (error) {
-        console.log(error)
-    }
-})
+//     try {
+//         await webpush.sendNotification(pushSubscription, payload, {
+//             headers: { 'Content-Type': 'application/json' }
+//         })
+//     } catch (error) {
+//         console.log(error)
+//     }
+// })
 
-
-app.listen(process.env.PORT, () => console.log('Server on port:' + process.env.PORT));
+const PORT = process.env.PORT || 5500;
+app.listen(PORT, () => console.log('Server on port:' + PORT));
+// app.listen(process.env.PORT, () => console.log('Server on port:' + process.env.PORT));
