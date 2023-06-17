@@ -15,7 +15,8 @@ const orderSchema = mongoose.Schema({
     comment: String,
     completed: Boolean,
     delete: Boolean,
-    paid: Boolean
+    shop: String,
+    paid: Boolean,
 });
 
 export default mongoose.model("order", orderSchema);
