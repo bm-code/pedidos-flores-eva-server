@@ -16,7 +16,7 @@ app.use(cors({
 }));
 
 //mongodb
-mongoose.connect(process.env.MONGO_URL,
+mongoose.connect(process.env.MONGO_URL ?? 'mongodb+srv://benimorales:6LmxqAsRRhjbijEZ@cluster0.ezidvwu.mongodb.net/?retryWrites=true&w=majority',
     {
         useUnifiedTopology: true
 
